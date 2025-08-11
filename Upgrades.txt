@@ -1,5 +1,6 @@
 Realizado:
 * Soportar condiciones más complejas (por ejemplo, IS NULL, NOT IN, etc.)
+* Indicar el archivo de entrada con input, no con el nombre "entrada.sql".
 
 Pendientes:
 * Validar que el archivo no esté vacío

@@ -117,14 +117,33 @@ def generar_selects_de_respaldo(texto_sql: str):
 
 # Ejecución principal del script.
 if __name__ == "__main__":
-    # Archivos de entrada y salida.
-    ruta_entrada = Path("entrada.sql")
+    # Archivos de entrada.
+    archivos = [f.name for f in Path('.').iterdir() if f.is_file()]
+
+    # Versión 5: Indicar el archivo de entrada.
+    # Valida que haya archivos en la carpeta actual.
+    if not archivos:
+        # Si no hay archivos, muestra un mensaje y termina el script.
+        print("No se encontraron archivos en la carpeta actual.")
+        exit(1)
+    else:
+        # Si hay archivos, permite al usuario seleccionar uno.
+        print("Archivos encontrados en la carpeta actual:")
+        # Muestra los archivos encontrados y permite al usuario seleccionar uno.
+        for idx, archivo in enumerate(archivos, 1):
+            print(f"{idx}. {archivo}")
+        while True:
+            seleccion = input("Selecciona el número de archivo: ")
+            if seleccion.isdigit() and 1 <= int(seleccion) <= len(archivos):
+                break
+            print("Opción no válida. Intenta de nuevo.")
+        ruta_entrada = Path(archivos[int(seleccion) - 1])
+
+    # Archivo de salida.
     ruta_salida = Path("script-selects.txt")
 
-    # Validar existencia de archivo.
-    if not ruta_entrada.exists():
-        print("Archivo de entrada no encontrado.")
-    else:
+    # Continuar solo si existe el archivo de entrada.
+    if ruta_entrada.exists():
         try:
             # Lee el archivo de entrada y genera los SELECTs de respaldo.
             contenido = ruta_entrada.read_text(encoding="utf-8")
@@ -138,8 +157,8 @@ if __name__ == "__main__":
                 for sel in selects:
                     f.write(sel + "\n")
             # Mensaje de éxito.
+            print("---------------------------------------")
             print(f"Archivo generado correctamente en: {ruta_salida.resolve()}")
         except Exception as e:
             # Manejo de errores al procesar los archivos.
             print(f"Error al procesar los archivos: {e}")
-
