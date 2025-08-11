@@ -17,6 +17,7 @@ def generar_selects_de_respaldo(texto_sql: str):
     sentencias = re.split(r"\b(?=delete|update)\b", texto_unido, flags=re.IGNORECASE)
     '''
 
+    # VERSIÓN 5.
     # Divide el texto en sentencias usando punto y coma como delimitador
     sentencias = [x.strip() for x in re.split(r";", texto_limpio) if x.strip()]
 
