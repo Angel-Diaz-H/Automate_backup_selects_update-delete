@@ -132,6 +132,7 @@ if __name__ == "__main__":
         # Muestra los archivos encontrados y permite al usuario seleccionar uno.
         for idx, archivo in enumerate(archivos, 1):
             print(f"{idx}. {archivo}")
+        print("-----------------------------------------------")
         while True:
             seleccion = input("Selecciona el número de archivo: ")
             if seleccion.isdigit() and 1 <= int(seleccion) <= len(archivos):
@@ -157,8 +158,9 @@ if __name__ == "__main__":
                 for sel in selects:
                     f.write(sel + "\n")
             # Mensaje de éxito.
-            print("---------------------------------------")
+            print("-----------------------------------------------")
             print(f"Archivo generado correctamente en: {ruta_salida.resolve()}")
         except Exception as e:
             # Manejo de errores al procesar los archivos.
             print(f"Error al procesar los archivos: {e}")
+        print("----------------------------------------------------")
